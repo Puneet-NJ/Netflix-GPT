@@ -3,7 +3,10 @@
 - Create react app
 - Cofigured TailwindCSS
 - Header
+- Routing
+- Login page
 - Sign In/Sign up form
+- Form validation using useRef
 
 # Features
 
