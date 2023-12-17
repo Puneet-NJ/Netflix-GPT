@@ -2,9 +2,16 @@ import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { loginBg } from "../utils/mockData";
 import validateForm from "../utils/validateForm";
+import {
+	createUserWithEmailAndPassword,
+	signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
 	const [isSignInForm, setIsSignInForm] = useState(true);
+	const [errMessage, setErrMessage] = useState(null);
+
 	const email = useRef(null);
 	const password = useRef(null);
 	const fullName = useRef(null);
@@ -14,8 +21,52 @@ const Login = () => {
 	};
 
 	const handleSubmitButton = () => {
-		const errMsg = validateForm(email.current.value, password.current.value);
+		const errMsg = validateForm(
+			email.current.value,
+			password.current.value,
+			fullName?.current?.value
+		);
 		console.log(errMsg);
+		setErrMessage(errMsg);
+		if (errMsg) return;
+
+		if (!isSignInForm) {
+			createUserWithEmailAndPassword(
+				auth,
+				email.current.value,
+				password.current.value
+			)
+				.then((userCredential) => {
+					// Signed up
+					const user = userCredential.user;
+					// console.log(user);
+				})
+				.catch((error) => {
+					const errorCode = error.code;
+					const errorMessage = error.message;
+					setErrMessage(errorCode + "-" + errMessage);
+
+					// console.log(errorMessage);
+				});
+		} else {
+			// isSignUpform
+			signInWithEmailAndPassword(
+				auth,
+				email.current.value,
+				password.current.value
+			)
+				.then((userCredential) => {
+					// Signed in
+					const user = userCredential.user;
+					// console.log(user);
+				})
+				.catch((error) => {
+					const errorCode = error.code;
+					const errorMessage = error.message;
+					setErrMessage(errorCode + "-" + errMessage);
+					// console.log(errorCode + "-" + errMessage);
+				});
+		}
 	};
 	return (
 		<div className="">
@@ -41,7 +92,7 @@ const Login = () => {
 				)}
 				<input
 					ref={email}
-					type="email"
+					type="text"
 					placeholder="Enter email"
 					className="p-3 w-full my-2 rounded bg-gray-800"
 				></input>
@@ -51,6 +102,8 @@ const Login = () => {
 					placeholder="Password"
 					className="p-3 w-full my-3 rounded bg-gray-800"
 				></input>
+				<p className="font-bold text-red-700 py-2">{errMessage}</p>
+
 				<button
 					className="p-3 w-full bg-red-600 my-7 rounded"
 					onClick={handleSubmitButton}
