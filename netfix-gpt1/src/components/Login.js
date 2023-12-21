@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
-import { loginBg } from "../utils/mockData";
+import { loginBg, userIcon } from "../utils/mockData";
 import validateForm from "../utils/validateForm";
 import {
 	createUserWithEmailAndPassword,
@@ -8,14 +8,12 @@ import {
 	updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 const Login = () => {
 	const [isSignInForm, setIsSignInForm] = useState(true);
 	const [errMessage, setErrMessage] = useState(null);
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const email = useRef(null);
@@ -47,8 +45,7 @@ const Login = () => {
 					const user = userCredential.user;
 					updateProfile(user, {
 						displayName: fullName?.current?.value,
-						photoURL:
-							"https://media.licdn.com/dms/image/C5603AQHEcK3REWdBSg/profile-displayphoto-shrink_400_400/0/1646931169828?e=1708560000&v=beta&t=r6rAhpAGjxwiNZuwrvuTrICcElMh4U9JTrdYCGa8Wj4",
+						photoURL: userIcon,
 					})
 						.then(() => {
 							// Profile updated!
@@ -61,7 +58,6 @@ const Login = () => {
 									photoURL: photoURL,
 								})
 							);
-							navigate("/browse");
 							// ...
 						})
 						.catch((error) => {
@@ -87,7 +83,6 @@ const Login = () => {
 					// Signed in
 					const user = userCredential.user;
 					// console.log(user);
-					navigate("/browse");
 				})
 				.catch((error) => {
 					const errorCode = error.code;

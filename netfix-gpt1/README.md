@@ -15,6 +15,20 @@
 - Implemented Sign Out
 - Update profile
 - Fetch movies from TMDB movies (Yet to do)
+- BugFix: Update userPhoto and displayName each time user signs in/up
+- BugFix: Redirect user from /browse to /login if he isn't logged in &
+  also redirect user to /login from /browse if he is logged in
+- Unsubscribed onAuthStateChanged so that there is no memory overload
+- Register for TMDB API & create an app & get access token
+- Get data from TMDB now playing movies list API
+- Custom hook for Now Playing Movies
+- Create movieSlice
+- Update store with movie data
+- Planning for main and secondary container
+- Fetch data for trailer video
+- Update store with trailer video data
+- Embedded yt video with autoplay and mute
+- Tailwind classes to make Main Container look cool
 
 # Features
 

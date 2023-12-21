@@ -1,24 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { netflixLogo } from "../utils/mockData";
-import { signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, removeUser } from "../utils/userSlice";
 
 const Header = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
 	const user = useSelector((store) => store?.user);
 
 	const handleSignOut = () => {
 		signOut(auth)
 			.then(() => {
 				// Sign-out successful.
-				navigate("/");
 			})
 			.catch((error) => {
 				// An error happened.
+				navigate("/error");
 			});
 	};
+
+	useEffect(() => {
+		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			if (user) {
+				const { uid, displayName, email, photoURL } = user;
+				dispatch(
+					addUser({
+						uid: uid,
+						email: email,
+						displayName: displayName,
+						photoURL: photoURL,
+					})
+				);
+				navigate("/browse");
+			} else {
+				dispatch(removeUser());
+				navigate("/");
+			}
+		});
+
+		// We need to remove this onAuthStateChanged everytime it is done(unmounted)
+		return () => unsubscribe();
+	}, []);
 
 	return (
 		<div className="w-full z-10 absolute bg-gradient-to-b from-black py-5 px-5 flex justify-between items-center">
