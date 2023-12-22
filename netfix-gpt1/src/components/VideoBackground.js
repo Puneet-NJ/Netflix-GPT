@@ -4,17 +4,12 @@ import useDispatchTrailer from "../hooks/useDispatchTrailer";
 
 const VideoBackground = ({ movieId }) => {
 	const trailer = useSelector((store) => store.movies?.trailer);
-	// console.log("outside useDispatchTrailer1");
 	useDispatchTrailer(movieId);
-	// console.log("outside useDispatchTrailer2");
-
-	console.log("https://www.youtube.com/embed/" + trailer?.key);
 
 	return (
-		<div className=" absolute w-screen aspect-video">
+		<div className="w-full box-border absolute">
 			<iframe
-				width="100%"
-				height="100%"
+				className="w-full aspect-video box-border"
 				src={
 					"https://www.youtube.com/embed/" + trailer?.key + "?autoplay=1&mute=1"
 				}

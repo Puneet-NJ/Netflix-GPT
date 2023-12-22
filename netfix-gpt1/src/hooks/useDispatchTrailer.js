@@ -21,7 +21,6 @@ const useDispatchTrailer = (movieId) => {
 			trailer = json.results[0];
 		}
 		dispatch(addTrailer(trailer));
-		console.log("inside useDispatchTrailer");
 	};
 
 	useEffect(() => {
