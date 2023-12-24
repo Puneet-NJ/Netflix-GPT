@@ -5,12 +5,14 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
+import { showGPTContainer } from "../utils/GPT_Slice";
 
 const Header = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const user = useSelector((store) => store?.user);
+	const gptContainer = useSelector((store) => store?.gpt?.GPTContainer);
 
 	const handleSignOut = () => {
 		signOut(auth)
@@ -46,11 +48,22 @@ const Header = () => {
 		return () => unsubscribe();
 	}, []);
 
+	const handleGPT = () => {
+		dispatch(showGPTContainer());
+	};
+
 	return (
 		<div className="w-full z-10 absolute bg-gradient-to-b from-black py-5 px-5 flex justify-between items-center">
 			<img src={netflixLogo} alt="logo" className="w-44"></img>
 			{user && (
 				<div className="flex h-10 pr-10">
+					{}
+					<button
+						onClick={handleGPT}
+						className="bg-red-700 px-3 py-2 cursor-pointer shadow-lg text-white mr-10 hover:scale-95 hover:bg-red-600 duration-150"
+					>
+						{gptContainer ? "Home" : "GPT Recommendation"}
+					</button>
 					<img
 						alt="User Icon"
 						src={user?.photoURL}

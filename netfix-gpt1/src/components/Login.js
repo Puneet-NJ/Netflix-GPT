@@ -95,7 +95,7 @@ const Login = () => {
 	return (
 		<div className="">
 			<Header />
-			<img src={loginBg} alt="backgorund" className="absolute bg-cover "></img>
+			<img src={loginBg} alt="backgorund" className="absolute"></img>
 
 			<form
 				onSubmit={(e) => e.preventDefault()}

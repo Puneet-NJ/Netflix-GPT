@@ -35,6 +35,7 @@
 - TMDB image CDN URL
 - Made browse page look cool with tailwind classes
 - Custom hook for each MovieList/Category
+- Build GPT component
 
 # Features
 
