@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { addTrailer } from "../utils/moviesSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/mockData";
 
 const useDispatchTrailer = (movieId) => {
 	const dispatch = useDispatch();
+
+	const trailer = useSelector((store) => store.movies.trailer);
 
 	// Get trailer and dispatch it to to movies section of ReduxStore
 	const getTrailer = async () => {
@@ -24,7 +26,7 @@ const useDispatchTrailer = (movieId) => {
 	};
 
 	useEffect(() => {
-		getTrailer();
+		!trailer && getTrailer();
 	}, []);
 };
 

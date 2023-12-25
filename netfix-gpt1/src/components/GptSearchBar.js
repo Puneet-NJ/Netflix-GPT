@@ -1,9 +1,12 @@
 import React, { useRef } from "react";
-import { API_OPTIONS, loginBg } from "../utils/mockData";
+import { API_OPTIONS } from "../utils/mockData";
 import openai from "../utils/openai";
+import { useDispatch } from "react-redux";
+import { addGptMovies } from "../utils/GPT_Slice";
 
 const GptSearchBar = () => {
 	const userInput = useRef(null);
+	const dispatch = useDispatch();
 
 	const getMovieFromTMDB = async (movie) => {
 		const data = await fetch(
@@ -33,16 +36,17 @@ const GptSearchBar = () => {
 		const gptMovies = gptResults?.choices[0]?.message?.content;
 
 		const gptMoviesArr = gptMovies.split(", ");
-		console.log(gptMoviesArr);
+		// console.log(gptMoviesArr);
 
 		const tmdbMovies = gptMoviesArr.map((movie) => getMovieFromTMDB(movie));
 		const movies = await Promise.all(tmdbMovies);
-		console.log(movies);
+		// console.log(movies);
+
+		dispatch(addGptMovies({ movies: movies, gptMovies: gptMovies }));
 	};
 
 	return (
 		<div className="">
-			<img src={loginBg} alt="Background" className="absolute -z-10"></img>
 			<form
 				className=" pt-32 w-1/2 mx-auto grid grid-cols-12 p-2"
 				onSubmit={(e) => e.preventDefault()}

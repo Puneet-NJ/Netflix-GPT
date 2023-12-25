@@ -2,6 +2,7 @@ import React from "react";
 import { POSTER_CDN } from "../utils/mockData";
 
 const MovieCard = ({ poster }) => {
+	if (!poster) return;
 	return (
 		<div className="w-36 pr-4">
 			<img
