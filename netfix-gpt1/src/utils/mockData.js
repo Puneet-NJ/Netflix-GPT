@@ -17,3 +17,5 @@ export const API_OPTIONS = {
 };
 
 export const POSTER_CDN = "https://image.tmdb.org/t/p/w300/";
+
+export const OPENAI_KEY = "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";

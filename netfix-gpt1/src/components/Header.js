@@ -52,12 +52,23 @@ const Header = () => {
 		dispatch(showGPTContainer());
 	};
 
+	const updateLanguage = () => {};
+
 	return (
 		<div className="w-full z-10 absolute bg-gradient-to-b from-black py-5 px-5 flex justify-between items-center">
 			<img src={netflixLogo} alt="logo" className="w-44"></img>
 			{user && (
 				<div className="flex h-10 pr-10">
-					{}
+					{gptContainer && (
+						<select
+							onChange={updateLanguage}
+							className="p-2 mr-7 shadow-md rounded cursor-pointer"
+						>
+							<option>English</option>
+							<option>Hindi</option>
+							<option>Spanish</option>
+						</select>
+					)}
 					<button
 						onClick={handleGPT}
 						className="bg-red-700 px-3 py-2 cursor-pointer shadow-lg text-white mr-10 hover:scale-95 hover:bg-red-600 duration-150"
