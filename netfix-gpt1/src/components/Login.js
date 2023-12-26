@@ -95,11 +95,15 @@ const Login = () => {
 	return (
 		<div className="">
 			<Header />
-			<img src={loginBg} alt="backgorund" className="absolute"></img>
+			<img
+				src={loginBg}
+				alt="backgorund"
+				className="h-screen object-cover absolute"
+			></img>
 
 			<form
 				onSubmit={(e) => e.preventDefault()}
-				className="absolute w-3/12 p-7 bg-black text-white right-0 left-0 mx-auto my-44 bg-opacity-80"
+				className="absolute w-[80%] md:w-3/12 p-7 bg-black text-white right-0 left-0 mx-auto my-44 bg-opacity-80"
 			>
 				{/* h-96 top-0 bottom-0 my-auto */}
 				<h1 className="text-3xl font-bold my-5">

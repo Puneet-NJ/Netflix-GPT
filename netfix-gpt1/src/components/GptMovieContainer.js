@@ -9,7 +9,7 @@ const GptMovieContainer = () => {
 	gptMovies = gptMovies.split(", ");
 
 	return (
-		<div className="bg-black m-4 p-4">
+		<div className="bg-black bg-opacity-80 m-4 p-4">
 			{gptMovies.map((movie, index) => (
 				<MovieList key={movie} title={movie} movies={movies[index]} />
 			))}

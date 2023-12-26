@@ -55,10 +55,10 @@ const Header = () => {
 	const updateLanguage = () => {};
 
 	return (
-		<div className="w-full z-10 absolute bg-gradient-to-b from-black py-5 px-5 flex justify-between items-center">
-			<img src={netflixLogo} alt="logo" className="w-44"></img>
+		<div className="w-full z-10 absolute bg-gradient-to-b from-black py-5 px-5 flex flex-col md:flex-row justify-between items-center">
+			<img src={netflixLogo} alt="logo" className="md:w-44 w-36"></img>
 			{user && (
-				<div className="flex h-10 pr-10">
+				<div className="flex h-10 md:pr-10 pr-0 md:mt-0 mt-5 md:mx-0 mx-auto">
 					{gptContainer && (
 						<select
 							onChange={updateLanguage}
@@ -82,7 +82,7 @@ const Header = () => {
 					></img>
 					<button
 						onClick={handleSignOut}
-						className="cursor-pointer ml-5 text-white"
+						className="cursor-pointer  pl-0 text-white"
 					>
 						Sign Out
 					</button>

@@ -36,6 +36,15 @@
 - Made browse page look cool with tailwind classes
 - Custom hook for each MovieList/Category
 - Build GPT component
+- Get OpenAI API key
+- Gpt search API call
+- Fetched GPT movieSuggestions from TMDB
+- Created GPTSlice and added data
+- Reused MovieList component to render GPT_movies container
+- Memoization
+- Adding .env file
+- Adding .env file to .gitignore
+- Made our app Responsive.
 
 # Features
 
