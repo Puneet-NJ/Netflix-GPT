@@ -1,12 +1,13 @@
 import React, { useRef } from "react";
-import { API_OPTIONS } from "../utils/mockData";
+import { API_OPTIONS, LANGUAGES } from "../utils/mockData";
 import openai from "../utils/openai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addGptMovies } from "../utils/GPT_Slice";
 
 const GptSearchBar = () => {
 	const userInput = useRef(null);
 	const dispatch = useDispatch();
+	const language = useSelector((store) => store.gpt.language);
 
 	const getMovieFromTMDB = async (movie) => {
 		const data = await fetch(
@@ -45,6 +46,8 @@ const GptSearchBar = () => {
 		dispatch(addGptMovies({ movies: movies, gptMovies: gptMovies }));
 	};
 
+	const currentLanguage = LANGUAGES.find((lang) => lang.name === language);
+
 	return (
 		<div className="">
 			<form
@@ -53,14 +56,14 @@ const GptSearchBar = () => {
 			>
 				<input
 					ref={userInput}
-					placeholder="What do you want to watch today?"
+					placeholder={currentLanguage.placeholderText}
 					className="p-2 pl-5 border text-lg border-black col-span-9 text-black bg-white shadow-2xl"
 				></input>
 				<button
 					onClick={handleGptSearch}
 					className="ml-3 bg-red-700 col-span-3 rounded-md hover:bg-red-600 text-white hover:scale-95 duration-150 shadow-2xl"
 				>
-					Search
+					{currentLanguage.searchText}
 				</button>
 			</form>
 		</div>

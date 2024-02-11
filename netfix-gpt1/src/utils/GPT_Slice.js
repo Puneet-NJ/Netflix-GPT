@@ -6,6 +6,7 @@ const GPTSlice = createSlice({
 		GPTContainer: false,
 		movies: null,
 		gptMovies: null,
+		language: "English",
 	},
 	reducers: {
 		showGPTContainer: (state, action) => {
@@ -16,8 +17,13 @@ const GPTSlice = createSlice({
 			state.movies = movies;
 			state.gptMovies = gptMovies;
 		},
+
+		changeLanguage: (state, action) => {
+			state.language = action.payload;
+		},
 	},
 });
 
-export const { showGPTContainer, addGptMovies } = GPTSlice.actions;
+export const { showGPTContainer, addGptMovies, changeLanguage } =
+	GPTSlice.actions;
 export default GPTSlice.reducer;

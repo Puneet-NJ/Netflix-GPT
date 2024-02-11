@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { netflixLogo } from "../utils/mockData";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { showGPTContainer } from "../utils/GPT_Slice";
+import { changeLanguage, showGPTContainer } from "../utils/GPT_Slice";
 
 const Header = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const [currLang, setCurrLang] = useState("English");
+	const language = useRef(null);
 
 	const user = useSelector((store) => store?.user);
 	const gptContainer = useSelector((store) => store?.gpt?.GPTContainer);
@@ -52,21 +54,35 @@ const Header = () => {
 		dispatch(showGPTContainer());
 	};
 
-	const updateLanguage = () => {};
+	const updateLanguage = () => {
+		setCurrLang(language?.current?.value);
+
+		dispatch(changeLanguage(language?.current?.value));
+	};
+
+	const handleGoHome = () => {
+		if (!gptContainer) return;
+
+		dispatch(showGPTContainer());
+	};
 
 	return (
 		<div className="w-full z-10 absolute bg-gradient-to-b from-black py-5 px-5 flex flex-col md:flex-row justify-between items-center">
-			<img src={netflixLogo} alt="logo" className="md:w-44 w-36"></img>
+			<button onClick={handleGoHome}>
+				<img src={netflixLogo} alt="logo" className="md:w-44 w-36"></img>
+			</button>
 			{user && (
 				<div className="flex h-10 md:pr-10 pr-0 md:mt-0 mt-5 md:mx-0 mx-auto">
 					{gptContainer && (
 						<select
+							ref={language}
 							onChange={updateLanguage}
 							className="p-2 mr-7 shadow-md rounded cursor-pointer"
 						>
 							<option>English</option>
 							<option>Hindi</option>
 							<option>Spanish</option>
+							<option>Kannada</option>
 						</select>
 					)}
 					<button
@@ -82,7 +98,7 @@ const Header = () => {
 					></img>
 					<button
 						onClick={handleSignOut}
-						className="cursor-pointer  pl-0 text-white"
+						className="cursor-pointer pl-0 text-white"
 					>
 						Sign Out
 					</button>

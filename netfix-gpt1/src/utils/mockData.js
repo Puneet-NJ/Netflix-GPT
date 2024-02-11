@@ -18,3 +18,26 @@ export const API_OPTIONS = {
 export const POSTER_CDN = "https://image.tmdb.org/t/p/w300/";
 
 export const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY;
+
+export const LANGUAGES = [
+	{
+		name: "English",
+		placeholderText: "What do you want to watch today?",
+		searchText: "Search",
+	},
+	{
+		name: "Hindi",
+		placeholderText: "आज आप क्या देखना चाहते हैं?",
+		searchText: "खोज",
+	},
+	{
+		name: "Spanish",
+		placeholderText: "¿Qué quieres ver hoy?",
+		searchText: "buscar",
+	},
+	{
+		name: "Kannada",
+		placeholderText: "ನೀವು ಇಂದು ಏನನ್ನು ವೀಕ್ಷಿಸಲು ಬಯಸುತ್ತೀರಿ?",
+		searchText: "ಹುಡುಕಿ",
+	},
+];
